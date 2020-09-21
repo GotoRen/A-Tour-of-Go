@@ -3,3 +3,4 @@
 - _Command_
   - `$ go env`
   - `$ which go` 
+  - `$ go run ファイル.go`
