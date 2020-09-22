@@ -5,4 +5,14 @@
   - `$ which go` 
   - `$ go run hoge.go`
 - _Sentence_
-  - `fmt.Print(runtime.GOOS) // 実行環境（OS）`
+  - 環境
+  ```
+  package main
+  import (
+      "fmt"
+      "runtime"
+  )
+  func main() { 
+      fmt.Print(runtime.GOOS + "\n") // 実行環境（OS）
+  }
+  ```
