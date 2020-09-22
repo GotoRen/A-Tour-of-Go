@@ -3,6 +3,6 @@
 - _Command_
   - `$ go env`
   - `$ which go` 
-  - `$ go run ファイル.go`
+  - `$ go run hoge.go`
 - _Sentence_
   - `fmt.Print(runtime.GOOS) // 実行環境（OS）`
