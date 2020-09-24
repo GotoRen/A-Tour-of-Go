@@ -1,4 +1,4 @@
-/* type conversion */
+/* 型変換 */
 package main
 
 import (
@@ -16,7 +16,7 @@ func main() {
 	//var f float64 = float64(i) // error: fが初期化させていない
 	//var u uint = uint(f)
 	//fmt.Println(i, f)
-    // or
+	// or
 	//i := 42
 	//f := 1
 	//f := float64(i) // error: fが初期化させていない

@@ -1,3 +1,4 @@
+/* 定数 */
 package main
 
 import "fmt"
