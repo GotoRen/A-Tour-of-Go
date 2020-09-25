@@ -1,4 +1,4 @@
-/* slice of slice */
+/* join */
 package main
 
 import (
@@ -24,6 +24,7 @@ func main() {
 	fmt.Println(len(board))
 	for i := 0; i < len(board); i++ {
 		// fmt.Println(board[i])
-		fmt.Printf("%s\n", strings.Join(board[i], " "))
+		merge := strings.Join(board[i], " ")
+		fmt.Printf("%s\n", merge)
 	}
 }

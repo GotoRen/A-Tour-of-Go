@@ -1,4 +1,4 @@
-/* slice length, capacity */
+/* length and capacity */
 package main
 
 import "fmt"
@@ -36,7 +36,6 @@ func main() {
 	// 先頭2つを削除
 	s2 = s2[2:] // len=2 cap=4 [5 7]
 	printSlice(s2)
-
 }
 
 func printSlice(s2 []int) {
