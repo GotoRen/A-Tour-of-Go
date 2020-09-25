@@ -388,8 +388,8 @@ code {
 <li><code>uintptr</code></li>
 </ul>
 </li>
-<li><code>byte</code> // uint8 の別名</li>
-<li><code>rune</code> // int32 の別名（Unicode のコードポイントを表す）</li>
+<li><code>byte</code> → uint8 の別名</li>
+<li><code>rune</code> → int32 の別名（Unicode のコードポイントを表す）</li>
 <li><code>float</code>
 <ul>
 <li><code>float32</code></li>
@@ -477,7 +477,9 @@ fmt.Println(<span class="hljs-string">"Hello"</span>, World)
 </li>
 <li>文字列と変数の接続
 <ul>
-<li>文の接続はコンマ<code>,</code>で行う</li>
+<li><code>fmt.Printf</code>を使用する<br>
+or</li>
+<li><code>fmt.Println(&quot;値&quot;, &quot;値&quot;, &quot;値&quot;, ...)</code></li>
 </ul>
 </li>
 <li>グローバル変数
@@ -502,8 +504,8 @@ fmt.Println(<span class="hljs-string">"Hello"</span>, World)
 <ul>
 <li>フォーマット</li>
 </ul>
-<pre class="hljs"><code><div>func 関数名(引数1 型, 引数2 型, ...) 戻り値の型 {
-  return 戻り値
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">func</span> 関数名<span class="hljs-params">(引数1 型, 引数2 型, ...)</span> 戻り値の型</span> {
+  <span class="hljs-keyword">return</span> 戻り値
 }
 </div></code></pre>
 <ul>
@@ -550,7 +552,7 @@ fmt.Println(<span class="hljs-string">"Hello"</span>, World)
 <ul>
 <li>フォーマット</li>
 </ul>
-<pre class="hljs"><code><div>for i:=初期値; 条件; 式{
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> i:=初期値; 条件; 式{
   処理
 }
 </div></code></pre>
@@ -706,7 +708,7 @@ fmt.Println(<span class="hljs-string">"Hello"</span>, World)
 <li>配列との違い
 <ul>
 <li><code>[3]bool{true, true, false} // 配列</code></li>
-<li><code>[]bool{true, true, false} // スライス</code></li>
+<li><code>[]bool{true, true, false}  // スライス</code></li>
 </ul>
 </li>
 <li>スライスに直接代入の例
@@ -908,8 +910,154 @@ fmt.Println(languages)            <span class="hljs-comment">// map[go:golang js
 </div></code></pre>
 </li>
 </ul>
+<h2 id="%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89">メソッド</h2>
+<ul>
+<li><u>レシーバ引数を伴う関数</u>
+<ul>
+<li>型にメソッドを定義できる</li>
+</ul>
+</li>
+<li>フォーマット</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(レシーバ)</span> メソッド名<span class="hljs-params">(引数)</span> 戻り値の型</span> {
+  処理
+}
+</div></code></pre>
+<ul>
+<li>例：）<code>Hello</code>メソッドに<code>p</code>という名前の<code>Person</code>型のレシーバを持たせる
+<ul>
+<li>メソッド</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">type</span> Person <span class="hljs-keyword">struct</span> {
+	name <span class="hljs-keyword">string</span>
+}
+
+<span class="hljs-comment">// Person型にメソッドを関連付ける</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Person)</span> <span class="hljs-title">Hello</span><span class="hljs-params">()</span></span> {
+	fmt.Printf(<span class="hljs-string">"Hello, I'm %s.\n"</span>, p.name)
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+  p := Person {name: <span class="hljs-string">"Alice"</span>}
+  p.Hello() <span class="hljs-comment">// Hello, I'm Alice.</span>
+}
+</div></code></pre>
+<ul>
+<li>通常の関数</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">type</span> Person <span class="hljs-keyword">struct</span> {
+    name <span class="hljs-keyword">string</span>
+}
+
+<span class="hljs-comment">// Person型の引数pをとる</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Hello</span><span class="hljs-params">(p Person)</span> <span class="hljs-title">string</span></span> {
+    <span class="hljs-keyword">return</span> p.name
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+	p := Person {name: <span class="hljs-string">"Alice"</span>}
+	elem := Hello(Person(p))
+	fmt.Printf(<span class="hljs-string">"Hello, I'm %s.\n"</span>, elem) <span class="hljs-comment">// Hello, I'm Alice.</span>
+}
+</div></code></pre>
+</li>
+<li><font color=Blue><strong>ポインタレシーバ</strong></font>
+<ul>
+<li>【用途】レシーバ自身を更新したい場合に使用することが多い
+<ul>
+<li>メソッドによってレシーバが指す先の変数を変更する</li>
+<li>メソッドの呼び出し毎に変数のコピーを避ける<br>
+→ 構造体が大きな場合に有効</li>
+</ul>
+</li>
+<li>レシーバの型はある型<code>p</code>へのポインタ<code>*p</code>が存在する
+<ul>
+<li>※ この時<code>p</code>は<code>*int</code>のようにポインタ自身をとることはできない</li>
+</ul>
+</li>
+<li>ポインタレシーバを持つメソッドはレシーバが指す変数を変更できる</li>
+<li>フォーマット</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(ポインタレシーバ)</span> メソッド名<span class="hljs-params">(引数)</span> 戻り値の型</span> {
+  処理
+}
+</div></code></pre>
+<ul>
+<li><u>メソッドがポインタレシーバの時、</u>呼び出し時、レシーバ引数は「変数」または「ポインタ」として取れる<br>
+→　<strong>これらはどちらかに統一して使用する</strong></li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment">/* パターン1 */</span>
+変数<span class="hljs-number">1</span> := 構造体(値<span class="hljs-number">1</span>, 値<span class="hljs-number">2</span>, ...)
+&amp;メソッド(変数<span class="hljs-number">1</span>) <span class="hljs-comment">// メソッドに "変数" を渡す</span>
+---------------------------------------
+<span class="hljs-comment">/* パターン2 */</span>
+変数<span class="hljs-number">2</span> := &amp;構造体(値<span class="hljs-number">1</span>, 値<span class="hljs-number">2</span>, ...)
+メッソド(変数<span class="hljs-number">2</span>)  <span class="hljs-comment">// メソッドに "ポインタ" を渡す</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">/* 変数 */</span>
+<span class="hljs-keyword">var</span> v Vertex
+v.Scale(<span class="hljs-number">5</span>)  <span class="hljs-comment">// OK（ (&amp;v).Scaleとして解釈 ）</span>
+<span class="hljs-comment">/* ポインタ */</span>
+p := &amp;v
+p.Scale(<span class="hljs-number">10</span>) <span class="hljs-comment">// OK（ (*p).Scaleとして解釈される ）</span>
+</div></code></pre>
+<ul>
+<li>例：）</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">type</span> Vertex <span class="hljs-keyword">struct</span> {
+	X, Y <span class="hljs-keyword">float64</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(v Vertex)</span> <span class="hljs-title">Abs</span><span class="hljs-params">()</span> <span class="hljs-title">float64</span></span> {
+	<span class="hljs-keyword">return</span> math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+
+<span class="hljs-comment">// ポインタレシーバを持つSclaeメソッドを定義</span>
+<span class="hljs-comment">// レシーバが指す変数vを変更できる</span>
+<span class="hljs-comment">// mainで宣言したVertex変数を変更するためには、Scaleメソッドはポインタレシーバにする必要がある</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(v *Vertex)</span> <span class="hljs-title">Scale</span><span class="hljs-params">(f <span class="hljs-keyword">float64</span>)</span></span> {
+	v.X = v.X * f
+	v.Y = v.Y * f
+	fmt.Printf(<span class="hljs-string">"%f, %f\n"</span>, v.X, v.Y) <span class="hljs-comment">// 30.000000, 40.000000</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+	v := Vertex{<span class="hljs-number">3</span>, <span class="hljs-number">4</span>}
+	v.Scale(<span class="hljs-number">10</span>)
+	fmt.Println(v.Abs())
+}
+<span class="hljs-comment">/* 出力
+&gt; *Vertexのとき -&gt; 50
+&gt;  Vertexのとき -&gt; 5
+*/</span>   
+</div></code></pre>
+</li>
+</ul>
+<h2 id="%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9%E5%9E%8B">インターフェース型</h2>
+<ul>
+<li>既知メソッドの集まりで定義
+<ul>
+<li>メソッドの集まりを実装した値をインターフェース型の変数へ持たせれる</li>
+</ul>
+</li>
+<li>フォーマット</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">type</span> インターフェース名 <span class="hljs-keyword">interface</span> {
+  メソッド<span class="hljs-number">1</span>(引数の型, ...) (戻り値<span class="hljs-number">1</span>の型, ...)
+  メソッド<span class="hljs-number">2</span>(引数の型, ...) (戻り値<span class="hljs-number">2</span>の型, ...)
+  ...
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+  <span class="hljs-keyword">var</span> 変数<span class="hljs-number">1</span> インターフェース名
+  変数<span class="hljs-number">2</span> := 構造体 <span class="hljs-comment">// 実行したいもの</span>
+  変数<span class="hljs-number">1</span> = 変数<span class="hljs-number">2</span>   <span class="hljs-comment">// インターフェースに渡す</span>
+  変数<span class="hljs-number">3</span> := 構造体 <span class="hljs-comment">// 実行したいもの </span>
+  変数<span class="hljs-number">1</span> = 変数<span class="hljs-number">3</span>   <span class="hljs-comment">// インターフェースに渡す</span>
+}
+</div></code></pre>
 <hr>
-<h2 id="font-colormagenta%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89font"><font color=Magenta>メソッド</font></h2>
+<h2 id="font-colormagenta%E3%83%A1%E3%83%A2font"><font color=Magenta>メモ</font></h2>
 <ul>
 <li><code>strings.Join()</code>
 <ul>

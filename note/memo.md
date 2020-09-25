@@ -13,8 +13,8 @@
     - `uint32`
     - `uint64`
     - `uintptr`
-  - `byte` // uint8 の別名
-  - `rune` // int32 の別名（Unicode のコードポイントを表す）
+  - `byte` → uint8 の別名
+  - `rune` → int32 の別名（Unicode のコードポイントを表す）
   - `float`
     - `float32`
     - `float64`
@@ -71,7 +71,9 @@ var s string  // ""
   - ※ <font color=Red><u>定数`const`は`:=`を使って宣言できない</u></font>
   - ※ <font color=Red><u>関数内部でのみ使用できる</u></font>
 - 文字列と変数の接続    
-  - 文の接続はコンマ`,`で行う  
+  - `fmt.Printf`を使用する<br>
+  or
+  - `fmt.Println("値", "値", "値", ...)`
 - グローバル変数
   - 関数の外側で宣言された変数
   - グローバルスコープ
@@ -87,7 +89,7 @@ var s string  // ""
 
 ## 関数
 - フォーマット
-```
+```go
 func 関数名(引数1 型, 引数2 型, ...) 戻り値の型 {
   return 戻り値
 }
@@ -126,7 +128,7 @@ for i:=下限; i<上限; i++ {
 ```
 - 反復条件に式を代入
   - フォーマット
-  ```
+  ```go
   for i:=初期値; 条件; 式{
     処理
   }
@@ -247,7 +249,7 @@ var s []int = primes[1:4] // [3 5 7]
 ```
 - 配列との違い
   - `[3]bool{true, true, false} // 配列` 
-  - `[]bool{true, true, false} // スライス`  
+  - `[]bool{true, true, false}  // スライス`  
 - スライスに直接代入の例
   - `s := []int{2, 3, 5, 7, 11, 13}`
 - 【よく使う】構造体スライスの例
@@ -417,8 +419,134 @@ func 関数名 func匿名関数 戻り値の型 {
   */
   ```
 
+## メソッド
+- <u>レシーバ引数を伴う関数</u>
+  - 型にメソッドを定義できる
+- フォーマット
+```go
+func (レシーバ) メソッド名(引数) 戻り値の型 {
+  処理
+}
+```
+- 例：）`Hello`メソッドに`p`という名前の`Person`型のレシーバを持たせる
+  - メソッド
+  ```go
+  type Person struct {
+  	name string
+  }
+
+  // Person型にメソッドを関連付ける
+  func (p Person) Hello() {
+  	fmt.Printf("Hello, I'm %s.\n", p.name)
+  }
+
+  func main(){
+    p := Person {name: "Alice"}
+    p.Hello() // Hello, I'm Alice.
+  }
+  ```
+  - 通常の関数
+  ```go
+  type Person struct {
+	  name string
+  }
+  
+  // Person型の引数pをとる
+  func Hello(p Person) string {
+	  return p.name
+  }
+
+  func main(){
+  	p := Person {name: "Alice"}
+  	elem := Hello(Person(p))
+  	fmt.Printf("Hello, I'm %s.\n", elem) // Hello, I'm Alice.
+  }
+  ```
+- <font color=Blue>__ポインタレシーバ__</font>
+  - 【用途】レシーバ自身を更新したい場合に使用することが多い
+    - メソッドによってレシーバが指す先の変数を変更する
+    - メソッドの呼び出し毎に変数のコピーを避ける<br>
+    → 構造体が大きな場合に有効
+  - レシーバの型はある型`p`へのポインタ`*p`が存在する
+    - ※ この時`p`は`*int`のようにポインタ自身をとることはできない
+  - ポインタレシーバを持つメソッドはレシーバが指す変数を変更できる
+  - フォーマット
+  ```go
+  func (ポインタレシーバ) メソッド名(引数) 戻り値の型 {
+    処理
+  }
+  ```
+  - <u>メソッドがポインタレシーバの時、</u>呼び出し時、レシーバ引数は「変数」または「ポインタ」として取れる<br>
+  →　__これらはどちらかに統一して使用する__
+  ```go
+  /* パターン1 */
+  変数1 := 構造体(値1, 値2, ...)
+  &メソッド(変数1) // メソッドに "変数" を渡す
+  ---------------------------------------
+  /* パターン2 */
+  変数2 := &構造体(値1, 値2, ...)
+  メッソド(変数2)  // メソッドに "ポインタ" を渡す
+  ```
+  ```go
+  /* 変数 */
+  var v Vertex
+  v.Scale(5)  // OK（ (&v).Scaleとして解釈 ）
+  /* ポインタ */
+  p := &v
+  p.Scale(10) // OK（ (*p).Scaleとして解釈される ）
+  ```
+  - 例：）
+  ```go
+  type Vertex struct {
+  	X, Y float64
+  }
+
+  func (v Vertex) Abs() float64 {
+  	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+  }
+
+  // ポインタレシーバを持つSclaeメソッドを定義
+  // レシーバが指す変数vを変更できる
+  // mainで宣言したVertex変数を変更するためには、Scaleメソッドはポインタレシーバにする必要がある
+  func (v *Vertex) Scale(f float64) {
+  	v.X = v.X * f
+  	v.Y = v.Y * f
+  	fmt.Printf("%f, %f\n", v.X, v.Y) // 30.000000, 40.000000
+  }
+
+  func main() {
+  	v := Vertex{3, 4}
+  	v.Scale(10)
+  	fmt.Println(v.Abs())
+  }
+  /* 出力
+  > *Vertexのとき -> 50
+  >  Vertexのとき -> 5
+  */   
+  ```
+
+## インターフェース型
+- 既知メソッドの集まりで定義
+  - メソッドの集まりを実装した値をインターフェース型の変数へ持たせれる
+- フォーマット
+```go
+type インターフェース名 interface {
+  メソッド1(引数の型, ...) (戻り値1の型, ...)
+  メソッド2(引数の型, ...) (戻り値2の型, ...)
+  ...
+}
+
+func main() {
+  var 変数1 インターフェース名
+  変数2 := 構造体 // 実行したいもの
+  変数1 = 変数2   // インターフェースに渡す
+  変数3 := 構造体 // 実行したいもの 
+  変数1 = 変数3   // インターフェースに渡す
+}
+```
+
 *****
-## <font color=Magenta>メソッド</font>
+## <font color=Magenta>メモ</font>
 - `strings.Join()`
   - <u>各文字列の間に区切り文字を入れて文字列スライスをマージする</u>
   - フォーマット
