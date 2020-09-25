@@ -1,5 +1,5 @@
 # Tour_go
-- Golang practice
+- 【A Tour of Go】
 - _Command_
   - `$ go env`
   - `$ which go` 
