@@ -5,7 +5,7 @@ import "fmt"
 
 func main() {
 	a := make([]int, 5)
-	printSlice("a", a)
+	printSlice("a", a) // len(b)=0, cap(b)=5
 
 	b := make([]int, 0, 5)
 	printSlice("b", b)

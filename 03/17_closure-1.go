@@ -1,4 +1,4 @@
-/* function value */
+/* closer その1 */
 package main
 
 import (
