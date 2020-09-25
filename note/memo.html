@@ -637,13 +637,13 @@ fmt.Println(<span class="hljs-string">"Hello"</span>, World)
 <ul>
 <li><code>defer</code>へ渡した関数の実行を呼び出し元の関数の終わり（returnする）まで遅延させる</li>
 <li><code>defer</code>へ渡した関数の引数はすぐに評価されるが、その関数自体は呼び出し元の関数がreturnするまで実行されない</li>
-<li><code>defer</code>へ渡した関数が複数ある場合、その呼び出しはスタックされる
+<li><code>defer</code>へ渡した関数が複数ある場合、その呼び出しはスタックされる<br>
 → LIFO（Last In First Out）</li>
 </ul>
 <h2 id="%E3%83%9D%E3%82%A4%E3%83%B3%E3%82%BF">ポインタ</h2>
 <ul>
 <li><code>*p</code>：変数pのポインタ</li>
-<li><code>nil</code>：ゼロ値
+<li><code>nil</code>：ゼロ値<br>
 → <code>var p *int</code></li>
 <li><code>p = &amp;i</code>：ポインタpへのオペレータ</li>
 </ul>
@@ -673,7 +673,7 @@ fmt.Println(<span class="hljs-string">"Hello"</span>, World)
 <li>例：）
 <ul>
 <li><code>var array [10]string</code>：string型の10個の変数の配列<code>array</code></li>
-<li><code>b := [10]int{}</code>：int型の10個の変数の配列<code>b</code>
+<li><code>b := [10]int{}</code>：int型の10個の変数の配列<code>b</code><br>
 → この場合、初期値はすべて<code>0</code></li>
 </ul>
 </li>
@@ -843,9 +843,9 @@ fmt.Println(languages)            <span class="hljs-comment">// map[go:golang js
 </ul>
 <h2 id="%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%B8%E3%83%A3closure">クロージャ（closure）</h2>
 <ul>
-<li>参照された変数へアクセスして変えることができる
+<li>参照された変数へアクセスして変えることができる<br>
 → その関数は変数へバインドされている</li>
-<li>main内の関数を変数に代入して外部関数に渡せる
+<li>main内の関数を変数に代入して外部関数に渡せる<br>
 → main内のクロージャに外部からアクセスできる</li>
 <li>フォーマット</li>
 </ul>
