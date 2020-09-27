@@ -104,7 +104,6 @@ func main() {
 }
 
 
-
 /* 変数: fetcher
  * 仮想フェッチャーURLの設定
  * ダミーデータを渡してfakeFetcherを取得
@@ -124,7 +123,7 @@ var fetcher = fakeFetcher{
 		"Packages",
 		[]string{
 			"https://golang.org/",
-			"https://golang.org/cmd/", // golang.orgの次はpkgで始まるため、cmdは見つからない
+			"https://golang.org/cmd/",
 			"https://golang.org/pkg/fmt/",
 			"https://golang.org/pkg/os/",
 		},
