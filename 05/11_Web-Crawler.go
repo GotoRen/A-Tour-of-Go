@@ -46,6 +46,7 @@ func (f fakeFetcher) Fetch(url string) (string, []string, error) {
  * 戻り値: なし
  */
 func Crawl(url string, depth int, fetcher Fetcher) {
+	//fmt.Println("debug: ", url, depth, fetcher)
 	cache := struct {
 		visited map[string]bool
 		sync.Mutex
