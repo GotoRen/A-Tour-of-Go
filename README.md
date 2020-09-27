@@ -5,7 +5,7 @@
   - `$ which go` 
 - _Sentence_
   - 環境
-  ```
+  ```go
   package main
   import (
       "fmt"
