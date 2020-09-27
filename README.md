@@ -22,7 +22,7 @@
     - 実行ファイルを作成
       - `$ go build hoge.go`
     - 実行
-      - `./hoge`
+      - `$ ./hoge`
   - go run コマンド
     - コンパイルと実行を続けて実行
       - `$ go run hoge.go`
