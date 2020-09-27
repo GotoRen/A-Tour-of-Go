@@ -3,7 +3,9 @@
 - _Command_
   - `$ go env`
   - `$ which go` 
-- _Sentence_
+- _Golang_
+  - `golang.org/x/tour/..`の入手
+    - `$ go get golang.org/x/tour/gotour`
   - 環境
   ```go
   package main
