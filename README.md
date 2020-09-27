@@ -7,10 +7,12 @@
   - 環境
   ```go
   package main
+  
   import (
       "fmt"
       "runtime"
   )
+  
   func main() { 
       fmt.Print(runtime.GOOS + "\n") // 実行環境（OS）
   }
