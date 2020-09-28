@@ -109,6 +109,10 @@ func main() {
  * 仮想フェッチャーURLの設定
  * ダミーデータを渡してfakeFetcherを取得
  * ダミーデータはURLをキーにして、bodyと次階層のurlsを持ったfakeResultを持つ
+ * 構成:   fakeFetcher map[string]*fakeResult
+ *      = fakeFetcher map[string]struct{string, []string}
+ *      = fakeFatecher{url: &fakeResult{body, urls}}
+ * 実行結果: https://golang.org/cmd/　という階層を持つURLは "url" に存在しない => "not found"
  */
 var fetcher = fakeFetcher{
 	// 1
