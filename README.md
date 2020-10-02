@@ -30,5 +30,5 @@
       - `$ go run hoge.go`
     - スクリプト言語のように開発できる
 - _Reference_
-  - [golang辞典](http://www.tohoho-web.com/ex/golang.html#goroutines)
-  - [golangの関数まとめてみた](https://qiita.com/pei0804/items/dd8acfba3dfe32530717)
+  - [Golang辞典](http://www.tohoho-web.com/ex/golang.html#goroutines)
+  - [Golangの関数まとめてみた](https://qiita.com/pei0804/items/dd8acfba3dfe32530717)
