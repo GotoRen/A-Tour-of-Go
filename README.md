@@ -1,5 +1,21 @@
 # Tour_go
 - 【A Tour of Go】
+- GOPATH
+$GOPATH
+ |------------ bin
+ |                 |----- fuga // ビルドされた実行可能ファイルが入る
+ |
+ |------------ pkg
+ |                 |----- darwin_amd64 // ビルドされたパッケージが入る『`pkg/GOARCH/pkgname.a`』
+ |                             |----- hoge.a
+ |                          
+ |------------ src
+                   |----- fuga // 実行可能なGoのコード『`src/cmdname/*.go`』
+                   |         |----- main.go
+                   |
+                   |----- hoge // ライブラリのGoのコード『`src/pkgname/*.go`』
+                             |----- hoge.go
+
 - _Command_
   - `$ go env`
   - `$ which go` 
