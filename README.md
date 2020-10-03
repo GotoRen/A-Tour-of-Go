@@ -1,6 +1,6 @@
 # Tour_go
 - 【A Tour of Go】
-- GOPATH
+- _GOPATH_
 ```go
 $GOPATH
  |------------ bin
@@ -21,8 +21,11 @@ $GOPATH
 - _Command_
   - `$ go env`
   - `$ which go` 
-- _Golang_
-  - `golang.org/x/tour/..`の入手
+- _`get`コマンド_
+  - `$ go get 取得先`
+  - `github.com/tenntenn/greeting`の取得
+    - `$ go get github.com/tenntenn/greeting`
+  - `golang.org/x/tour/..`の取得
     - `$ go get golang.org/x/tour/gotour`
   - 環境
   ```go
