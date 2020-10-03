@@ -8,7 +8,7 @@ $GOPATH
  |
  |------------ pkg
  |                 |----- darwin_amd64 // ビルドされたパッケージが入る『pkg/GOARCH/<br>pkgname.a』
- |                             |----- hoge.a
+ |                           |----- hoge.a
  |               
  |------------ src
                    |----- fuga // 実行可能なGoのコード『src/cmdname/*.go』
