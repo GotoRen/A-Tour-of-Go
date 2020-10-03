@@ -23,11 +23,12 @@ $GOPATH
   - `$ which go` 
 - _`get`コマンド_
   - `$ go get 取得先`
+    - `/Users/USER/go/src`配下に展開する
   - `github.com/tenntenn/greeting`の取得
     - `$ go get github.com/tenntenn/greeting`
   - `golang.org/x/tour/..`の取得
     - `$ go get golang.org/x/tour/gotour`
-  - 環境
+- _env_
   ```go
   package main
   
